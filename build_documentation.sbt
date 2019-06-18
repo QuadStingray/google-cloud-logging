@@ -21,10 +21,10 @@ sourceDirectory in Paradox := sourceDirectory.value / "main" / "paradox"
 ParadoxMaterialThemePlugin.paradoxMaterialThemeSettings(Paradox)
 
 paradoxMaterialTheme in Paradox ~= {
-  _.withRepository(uri("https://github.com/QuadStingray/google-cloud-logging"))
-    .withLogoIcon("desktop_mac")
+  _.withLogoIcon("desktop_mac")
     .withCopyright("© QuadStingray 2018")
     .withColor("teal", "indigo")
+    .withRepository(uri("https://github.com/QuadStingray/google-cloud-logging"))
 }
 
 paradoxMaterialTheme in Paradox ~= {
@@ -32,7 +32,7 @@ paradoxMaterialTheme in Paradox ~= {
 }
 
 paradoxMaterialTheme in Compile ~= {
-  _.withLogoIcon("desktop_mac")
+  _.withLogoIcon("cloud")
     .withCopyright("© QuadStingray 2018")
     .withColor("teal", "indigo")
 }

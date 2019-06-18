@@ -7,7 +7,6 @@ import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.spi.{ILoggingEvent, IThrowableProxy, StackTraceElementProxy}
 import ch.qos.logback.core.UnsynchronizedAppenderBase
 import ch.qos.logback.core.util.Loader
-import com.google.api.core.InternalApi
 import com.google.auth.Credentials
 import com.google.auth.oauth2.{GoogleCredentials, ServiceAccountCredentials}
 import com.google.cloud.MonitoredResource
@@ -16,6 +15,7 @@ import com.google.cloud.logging._
 import com.quadstingray.google.cloud.logging.exception.LoginCredentialsNotSupported
 
 import scala.collection.JavaConverters._
+import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
 
@@ -29,13 +29,16 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
   private var flushLevel: Level = _
   private var log: String = _
   private var resourceType: String = _
+  private var payLoadType: String = "JsonPayload"
   private val enhancerClassNames: ArrayBuffer[String] = ArrayBuffer()
   private val loggingEventEnhancerClassNames: ArrayBuffer[String] = ArrayBuffer()
 
   private var projectId: String = _
   private var credentialType: String = "FILE"
 
-  private var file: String = _
+  private var credentialFile: String = _
+
+  private var projectName: String = ""
 
   private var clientId: String = _
   private var clientEmail: String = _
@@ -89,6 +92,24 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
   }
 
   /**
+    * Sets the projectName.
+    *
+    * @param name The name for sampel of log_stream
+    */
+  def setProjectName(name: String): Unit = {
+    this.projectName = name
+  }
+
+  /**
+    * Sets the PayLoadType.
+    *
+    * @param payLoadType Choose your PayloadType JsonPayload or StringPayload
+    */
+  def setPayLoadType(payLoadType: String): Unit = {
+    this.payLoadType = payLoadType
+  }
+
+  /**
     * Sets the credentialType.
     *
     * @param credentialType The Login Credential Typ FILE, SERVICE_ACCOUNT
@@ -98,12 +119,12 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
   }
 
   /**
-    * Sets the file.
+    * Sets the credentialFile.
     *
-    * @param file The file Path to your Auth Json File
+    * @param credentialFile The credentialFile Path to your Auth Json File
     */
-  def setFile(file: String): Unit = {
-    this.file = file
+  def setFile(credentialFile: String): Unit = {
+    this.credentialFile = credentialFile
   }
 
   /**
@@ -172,7 +193,15 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
     }
   }
 
-  private[logback] def getMonitoredResource(projectId: String): MonitoredResource = MonitoredResourceUtil.getResource(projectId, resourceType)
+  private[logback] def getMonitoredResource(projectId: String): MonitoredResource = {
+    var resource = MonitoredResourceUtil.getResource(projectId, resourceType)
+
+    if (projectName.trim != "") {
+      resource = resource.toBuilder.addLabel("name", projectName).build()
+    }
+
+    resource
+  }
 
   private[logback] def getLoggingEnhancers: ArrayBuffer[LoggingEnhancer] = getEnhancers(enhancerClassNames)
 
@@ -235,7 +264,6 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
       logging.close()
     catch {
       case ex: Exception =>
-
       // ignore
     }
     logging = null
@@ -249,8 +277,8 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
         if (logging == null) {
           val builder: LoggingOptions = {
             if ("FILE".equalsIgnoreCase(credentialType)) {
-              if (file != null) {
-                val fileInputStream = new FileInputStream(file)
+              if (credentialFile != null) {
+                val fileInputStream = new FileInputStream(credentialFile)
                 LoggingOptions.newBuilder().setCredentials(GoogleCredentials.fromStream(fileInputStream)).build()
               } else {
                 throw new FileNotFoundException()
@@ -281,11 +309,35 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
     logging
   }
 
-  private def logEntryFor(e: ILoggingEvent) = {
-    val payload = new StringBuilder(e.getFormattedMessage).append('\n')
-    LoggingAppender.writeStack(e.getThrowableProxy, "", payload)
+  private def logEntryFor(e: ILoggingEvent): LogEntry = {
+
     val level = e.getLevel
-    val builder = LogEntry.newBuilder(Payload.StringPayload.of(payload.toString.trim)).setTimestamp(e.getTimeStamp).setSeverity(LoggingAppender.severityFor(level))
+
+    val builder: LogEntry.Builder = {
+      if ("StringPayload".equalsIgnoreCase(this.payLoadType)) {
+        val stringPayloadBuilder = new StringBuilder(e.getFormattedMessage).append('\n')
+        createPayloadString(e.getThrowableProxy, "", stringPayloadBuilder)
+
+        LogEntry.newBuilder(Payload.StringPayload.of(stringPayloadBuilder.toString.trim))
+      }
+      else {
+        val jsonPayloadMap = mutable.Map[String, Any]()
+        jsonPayloadMap.put("formattedMessage", e.getFormattedMessage)
+        jsonPayloadMap.put("message", e.getMessage)
+        jsonPayloadMap.put("callerData", e.getCallerData.map(_.toString).toList.asJava)
+        jsonPayloadMap.put("loggerName", e.getLoggerName)
+
+        if (e.getThrowableProxy != null) {
+          val proxyMap = getThrowableProxyMap(e.getThrowableProxy)
+          proxyMap.foreach(element => {
+            jsonPayloadMap.put(element._1, element._2)
+          })
+        }
+        LogEntry.newBuilder(Payload.JsonPayload.of(jsonPayloadMap.asJava))
+      }
+    }
+
+    builder.setTimestamp(e.getTimeStamp).setSeverity(LoggingAppender.severityFor(level))
     builder.addLabel(LoggingAppender.LEVEL_NAME_KEY, level.toString).addLabel(LoggingAppender.LEVEL_VALUE_KEY, String.valueOf(level.toInt))
     if (loggingEnhancers != null) {
       for (enhancer <- loggingEnhancers) {
@@ -299,36 +351,20 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
     }
     builder.build
   }
-}
 
 
-/**
-  * <a href="https://logback.qos.ch/">Logback</a> appender for StackDriver Cloud Logging.
-  *
-  * <p>Appender configuration in logback.xml:
-  *
-  * <ul>
-  * <li>&lt;appender name="CLOUD" class="com.google.cloud.logging.logback.LoggingAppender"&gt;
-  * <li>&lt;log&gt;application.log&lt;/log&gt; (Optional, defaults to "java.log" : Stackdriver log
-  * name)
-  * <li>&lt;level&gt;ERROR&lt;/level&gt; (Optional, defaults to "INFO" : logs at or above this
-  * level)
-  * <li>&lt;flushLevel&gt;WARNING&lt;/flushLevel&gt; (Optional, defaults to "ERROR")
-  * <li>&lt;resourceType&gt;&lt;/resourceType&gt; (Optional, auto detects on App Engine Flex,
-  * Standard, GCE and GKE, defaults to "global". See <a
-  * href="https://cloud.google.com/logging/docs/api/v2/resource-list">supported resource
-  * types</a>
-  * <li>(Optional) add custom labels to log entries using {@link LoggingEnhancer} classes.
-  * <li>&lt;enhancer&gt;com.example.enhancer1&lt;/enhancer&gt;
-  * <li>&lt;enhancer&gt;com.example.enhancer2&lt;/enhancer&gt;
-  * <li>&lt;/appender&gt;
-  * </ul>
-  */
-object LoggingAppender {
-  private val LEVEL_NAME_KEY = "levelName"
-  private val LEVEL_VALUE_KEY = "levelValue"
+  private def getThrowableProxyMap(proxy: IThrowableProxy): Map[String, Any] = {
+    val proxyInfos = mutable.Map[String, Any]()
+    if (proxy != null) {
+      proxyInfos.put("exceptionClassName", proxy.getClassName)
+      proxyInfos.put("stackTrace", proxy.getStackTraceElementProxyArray.toList.splitAt(proxy.getCommonFrames)._1.map(_.toString).toList.asJava)
+      if (proxy.getCause != null)
+        proxyInfos.put("causedBy", getThrowableProxyMap(proxy.getCause))
+    }
+    proxyInfos.toMap
+  }
 
-  @InternalApi("Visible for testing") private[logback] def writeStack(throwProxy: IThrowableProxy, prefix: String, payload: StringBuilder): Unit = {
+  private[logback] def createPayloadString(throwProxy: IThrowableProxy, prefix: String, payload: StringBuilder): Unit = {
     if (throwProxy == null) return
     payload.append(prefix).append(throwProxy.getClassName).append(": ").append(throwProxy.getMessage).append('\n')
     var trace = throwProxy.getStackTraceElementProxyArray
@@ -347,8 +383,14 @@ object LoggingAppender {
       }
     }
     if (commonFrames != 0) payload.append("    ... ").append(commonFrames).append(" common frames elided\n")
-    writeStack(throwProxy.getCause, "caused by: ", payload)
+    createPayloadString(throwProxy.getCause, "caused by: ", payload)
   }
+}
+
+
+object LoggingAppender {
+  private val LEVEL_NAME_KEY = "levelName"
+  private val LEVEL_VALUE_KEY = "levelValue"
 
   /**
     * Transforms Logback logging levels to Cloud severity.
@@ -356,7 +398,8 @@ object LoggingAppender {
     * @param level Logback logging level
     * @return Cloud severity level
     */
-  private def severityFor(level: Level) = level.toInt match { // TRACE
+  private def severityFor(level: Level) = level.toInt match {
+    // TRACE
     case 5000 =>
       Severity.DEBUG
     // DEBUG

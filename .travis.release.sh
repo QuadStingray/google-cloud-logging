@@ -10,7 +10,7 @@ else
       rm -rf credentials.properties &&
       rm -rf project/travis-deploy-key &&
       git remote rm origin &&
-      git remote add origin git@github.com:QuadStingray/sbt-javafx.git &&
+      git remote add origin git@github.com:QuadStingray/google-cloud-logging.git &&
       git fetch origin master &&
       git checkout master &&
       git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/* &&
