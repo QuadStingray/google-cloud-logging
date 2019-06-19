@@ -36,7 +36,7 @@ resolvers += Resolver.sonatypeRepo("releases")
 
 resolvers += Resolver.jcenterRepo
 
-// bintrayReleaseOnPublish in ThisBuild := true
+bintrayReleaseOnPublish in ThisBuild := true
 
 import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 
