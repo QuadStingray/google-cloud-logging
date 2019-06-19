@@ -9,11 +9,12 @@ This project is an [Logback-Appender](https://logback.qos.ch/) for [Google Cloud
 google-cloud-logging is deployed on bintray (jcenter).
 
 ## Docu and Samples
-Todo: Add Links
+* https://quadstingray.github.io/google-cloud-logging/
+* https://quadstingray.github.io/google-cloud-logging/samples/index.html
 
 ## Licence
 [Apache 2 License.](https://github.com/QuadStingray/google-cloud-logging/blob/master/LICENSE)
 
 ## Todos:
-- Tests
-- Documentation
+* Tests
+* Documentation
