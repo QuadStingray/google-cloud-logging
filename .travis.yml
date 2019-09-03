@@ -17,10 +17,7 @@ notifications:
 script:
   - echo ''
 os: linux
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
+
 jobs:
   include:
     - stage: SBT Test
