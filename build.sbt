@@ -4,23 +4,23 @@ organization := "com.quadstingray"
 
 crossPaths := false
 
-scalaVersion := "2.12.8"
+scalaVersion := crossScalaVersions.value.last
 
 crossScalaVersions := List("2.12.8", "2.13.0")
+
+scalacOptions := Seq("-unchecked", "-deprecation", "-Ywarn-unused", "-Yrangepos")
 
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3" % Provided
 
 libraryDependencies ++= Seq(
-  "com.google.cloud" % "google-cloud-logging" % "1.78.0"
+  "com.google.cloud" % "google-cloud-logging" % "1.89.0"
 )
 
 // Tests
 libraryDependencies ++= Seq(
-  "org.specs2" %% "specs2-core" % "4.5.1" % Test,
+  "org.specs2" %% "specs2-core" % "4.7.0" % Test,
   "junit" % "junit" % "4.12" % Test
 )
-
-
 
 homepage := Some(url("https://quadstingray.github.io/google-cloud-logging/"))
 
