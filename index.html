@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="description" content="google-cloud-logging">
-<meta name="generator" content="Paradox, paradox-material-theme=0.8.2, mkdocs-material=3.0.3">
+<meta name="generator" content="Paradox, paradox-material-theme=0.6.0, mkdocs-material=3.0.3">
 
 <meta name="lang:clipboard.copy" content="Copy to clipboard">
 <meta name="lang:clipboard.copied" content="Copied to clipboard">
@@ -48,7 +48,7 @@ data-md-color-accent="indigo"
 <div class="md-flex">
 <div class="md-flex__cell md-flex__cell--shrink">
 <a href="index.html" title="google-cloud-logging" class="md-header-nav__button md-logo">
-<i class="md-icon">desktop_mac</i>
+<i class="md-icon">cloud</i>
 </a>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">
@@ -113,7 +113,7 @@ QuadStingray/google-cloud-logging
 <label class="md-nav__title md-nav__title--site" for="drawer">
 <a href="index.html" title="google-cloud-logging" class="md-nav__button md-logo">
 <span class="md-nav__button md-logo">
-<i class="md-icon">desktop_mac</i>
+<i class="md-icon">cloud</i>
 </a>
 <a href="index.html" title="google-cloud-logging">
 google-cloud-logging
@@ -154,7 +154,7 @@ QuadStingray/google-cloud-logging
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 0.8.2
+<i class="md-icon" title="Version">label_outline</i> 1.0.0
 </label>
 </li>
 </ul>
@@ -185,17 +185,18 @@ QuadStingray/google-cloud-logging
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <h1><a href="#google-cloud-logging" name="google-cloud-logging" class="anchor"><span class="anchor-link"></span></a>google-cloud-logging</h1>
-<p>This project is an <a href="https://logback.qos.ch/">Logback-Appender</a> for <a href="https://cloud.google.com/logging/docs">Google Cloud Logging</a> and is inspired by the Google&rsquo;s original <a href="https://github.com/GoogleCloudPlatform/java-docs-samples/tree/master/logging/logback">Logback-Appender</a>.</p>
+<p>This project is an <a href="https://logback.qos.ch/">Logback-Appender</a> for <a href="https://cloud.google.com/logging/docs">Google Cloud Logging</a> and is inspired by the Google&rsquo;s original <a href="https://github.com/GoogleCloudPlatform/java-docs-samples/tree/master/logging/logback">Logback-Appender</a>.</p><div class="callout warning "><div class="callout-title">Warning</div>
+<p>Package Structure in 1.0.0 changed. Migration: replace &ldquo;com.quadstingray.google.cloud.logging.logback.LoggingAppender&rdquo; by &ldquo;com.quadstingray.logging.logback.google.cloud.LoggingAppender&rdquo;</p></div>
 <h2><a href="#build-informations" name="build-informations" class="anchor"><span class="anchor-link"></span></a>Build Informations</h2>
 <p><a href="https://travis-ci.org/QuadStingray/google-cloud-logging"><img src="https://travis-ci.org/QuadStingray/google-cloud-logging.svg?branch=master" alt="Build Status" /></a> <a href="https://bintray.com/quadstingray/maven/google-cloud-logging/_latestVersion"> <img src="https://api.bintray.com/packages/quadstingray/maven/google-cloud-logging/images/download.svg" alt="Download from Bintray" /> </a></p>
 <h2><a href="#maven" name="maven" class="anchor"><span class="anchor-link"></span></a>maven</h2>
 <p>google-cloud-logging is deployed on bintray (jcenter).</p>
-<h2><a href="#sbt" name="sbt" class="anchor"><span class="anchor-link"></span></a>SBT</h2><dl class="dependency"><dt>sbt</dt><dd><pre class="prettyprint"><code class="language-scala">libraryDependencies += "com.quadstingray" % "google-cloud-logging" % "0.8.2"</code></pre></dd><dt>Maven</dt><dd><pre class="prettyprint"><code class="language-xml">&lt;dependency&gt;
+<h2><a href="#sbt" name="sbt" class="anchor"><span class="anchor-link"></span></a>SBT</h2><dl class="dependency"><dt>sbt</dt><dd><pre class="prettyprint"><code class="language-scala">libraryDependencies += "com.quadstingray" % "google-cloud-logging" % "1.0.0"</code></pre></dd><dt>Maven</dt><dd><pre class="prettyprint"><code class="language-xml">&lt;dependency&gt;
   &lt;groupId&gt;com.quadstingray&lt;/groupId&gt;
   &lt;artifactId&gt;google-cloud-logging&lt;/artifactId&gt;
-  &lt;version&gt;0.8.2&lt;/version&gt;
+  &lt;version&gt;1.0.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre></dd><dt>Gradle</dt><dd><pre class="prettyprint"><code class="language-gradle">dependencies {
-  compile group: 'com.quadstingray', name: 'google-cloud-logging', version: '0.8.2'
+  compile group: 'com.quadstingray', name: 'google-cloud-logging', version: '1.0.0'
 }</code></pre></dd></dl>
 <h2><a href="#licence" name="licence" class="anchor"><span class="anchor-link"></span></a>Licence</h2>
 <p><a href="https://github.com/QuadStingray/google-cloud-logging/blob/master/LICENSE">Apache 2 License.</a></p>
@@ -206,13 +207,13 @@ QuadStingray/google-cloud-logging
 </ul>
 </div>
 <div>
-<a href="https://github.com/QuadStingray/google-cloud-logging/tree/v0.8.2/src/main/paradox/index.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/QuadStingray/google-cloud-logging/tree/v1.0.0/src/main/paradox/index.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-0.8.2
+1.0.0
 </span>
 </div>
 </article>
