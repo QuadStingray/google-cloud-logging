@@ -30,11 +30,11 @@ Samples:
 
 ### Add Setting To Logback.xml
 ```xml
-        <loggingEventEnhancer>com.quadstingray.google.SpecialEnhancer</loggingEventEnhancer> 
+        <loggingEventEnhancer>com.quadstingray.logging.logback.google.SpecialEnhancer</loggingEventEnhancer>
 ```
 
 ```scala
-import com.quadstingray.google.cloud.logging.logback.LoggingEventEnhancer
+import com.quadstingray.logging.logback.google.cloud.LoggingEventEnhancer
 import ch.qos.logback.classic.spi.ILoggingEvent
 
 class SpecialEnhancer extends LoggingEventEnhancer {

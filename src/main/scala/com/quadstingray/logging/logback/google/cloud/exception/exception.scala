@@ -1,4 +1,4 @@
-package com.quadstingray.google.cloud.logging.exception
+package com.quadstingray.logging.logback.google.cloud.exception
 
 import ch.qos.logback.core.boolex.EvaluationException
 

@@ -1,4 +1,4 @@
-package com.quadstingray.google.cloud.logging.logback
+package com.quadstingray.logging.logback.google.cloud
 
 import java.io.{FileInputStream, FileNotFoundException}
 import java.util.Collections
@@ -12,7 +12,7 @@ import com.google.auth.oauth2.{GoogleCredentials, ServiceAccountCredentials}
 import com.google.cloud.MonitoredResource
 import com.google.cloud.logging.Logging.WriteOption
 import com.google.cloud.logging._
-import com.quadstingray.google.cloud.logging.exception.LoginCredentialsNotSupported
+import com.quadstingray.logging.logback.google.cloud.exception.LoginCredentialsNotSupported
 
 import scala.collection.JavaConverters._
 import scala.collection.mutable
@@ -166,7 +166,7 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
     this.privateKey = internalPrivateKey
   }
 
-  /** Add extra labels using classes that implement {@link LoggingEnhancer}. */
+  /** Add extra labels using classes that implement {@link com.google.cloud.logging.LoggingEnhancer}. */
   def addEnhancer(enhancerClassName: String): Unit = {
     this.enhancerClassNames.+=(enhancerClassName)
   }

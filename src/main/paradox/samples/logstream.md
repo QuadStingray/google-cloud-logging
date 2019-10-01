@@ -3,7 +3,7 @@
 ## Logback.xml
 
 ```xml
-    <appender name="CLOUD" class="com.quadstingray.google.cloud.logging.logback.LoggingAppender">
+    <appender name="CLOUD" class="com.quadstingray.logging.logback.google.cloud.LoggingAppender">
         <!-- Optional : filter logs at or above a level -->
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>INFO</level>

@@ -3,7 +3,7 @@
 ## Logback.xml
 
 ```xml
-    <appender name="CLOUD" class="com.quadstingray.google.cloud.logging.logback.LoggingAppender">
+    <appender name="CLOUD" class="com.quadstingray.logging.logback.google.cloud.LoggingAppender">
         <projectId>your-project-id</projectId> <!-- Optional : default java.log -->
         <credentialType>SERVICE_ACCOUNT</credentialType> <!-- Options: FILE, SERVICE_ACCOUNT Optional : default FILE -->
         <clientId>YOUR_CLIENT_ID</clientId> <!-- Required, when used file credentialType -->

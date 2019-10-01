@@ -18,23 +18,13 @@ enablePlugins(ParadoxSitePlugin, ParadoxMaterialThemePlugin)
 
 sourceDirectory in Paradox := sourceDirectory.value / "main" / "paradox"
 
-ParadoxMaterialThemePlugin.paradoxMaterialThemeSettings(Paradox)
 
-paradoxMaterialTheme in Paradox ~= {
-  _.withLogoIcon("desktop_mac")
+Compile / paradoxMaterialTheme := {
+    ParadoxMaterialTheme()
+      .withLogoIcon("cloud")
     .withCopyright("© QuadStingray 2018")
     .withColor("teal", "indigo")
     .withRepository(uri("https://github.com/QuadStingray/google-cloud-logging"))
-}
-
-paradoxMaterialTheme in Paradox ~= {
-  _.withRepository(uri("https://github.com/QuadStingray/google-cloud-logging"))
-}
-
-paradoxMaterialTheme in Compile ~= {
-  _.withLogoIcon("cloud")
-    .withCopyright("© QuadStingray 2018")
-    .withColor("teal", "indigo")
 }
 
 enablePlugins(SiteScaladocPlugin)
