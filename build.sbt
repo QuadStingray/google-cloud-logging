@@ -13,13 +13,13 @@ scalacOptions := Seq("-unchecked", "-deprecation", "-Ywarn-unused", "-Yrangepos"
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3" % Provided
 
 libraryDependencies ++= Seq(
-  "com.google.cloud" % "google-cloud-logging" % "1.92.0"
+  "com.google.cloud" % "google-cloud-logging" % "1.100.0"
 )
 
 // Tests
 libraryDependencies ++= Seq(
-  "org.specs2" %% "specs2-core" % "4.7.1" % Test,
-  "junit" % "junit" % "4.12" % Test
+  "org.specs2" %% "specs2-core" % "4.8.3" % Test,
+  "junit" % "junit" % "4.13" % Test
 )
 
 homepage := Some(url("https://quadstingray.github.io/google-cloud-logging/"))
