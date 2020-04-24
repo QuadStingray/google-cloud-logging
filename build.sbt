@@ -6,7 +6,7 @@ crossPaths := false
 
 scalaVersion := crossScalaVersions.value.last
 
-crossScalaVersions := List("2.12.8", "2.13.1")
+crossScalaVersions := List("2.12.8", "2.13.1", "2.13.2")
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-Ywarn-unused", "-Yrangepos")
 
