@@ -18,7 +18,6 @@ import scala.collection.JavaConverters._
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
-
 class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
 
   private var logging: Logging = _
@@ -47,7 +46,6 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
   private var privateKeyId: String = _
   private var privateKey: String = _
 
-
   /**
     * Batched logging requests get immediately flushed for logs at or above this level.
     *
@@ -55,18 +53,16 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
     *
     * @param flushLevel Logback log level
     */
-  def setFlushLevel(flushLevel: Level): Unit = {
+  def setFlushLevel(flushLevel: Level): Unit =
     this.flushLevel = flushLevel
-  }
 
   /**
     * Sets the log filename.
     *
     * @param log filename
     */
-  def setLog(log: String): Unit = {
+  def setLog(log: String): Unit =
     this.log = log
-  }
 
   /**
     * Sets the name of the monitored resource (Optional).
@@ -78,81 +74,72 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
     *
     * @param resourceType name of the monitored resource
     */
-  def setResourceType(resourceType: String): Unit = {
+  def setResourceType(resourceType: String): Unit =
     this.resourceType = resourceType
-  }
 
   /**
     * Sets the projectId.
     *
     * @param projectId The Id of Google cloud Project
     */
-  def setProjectId(projectId: String): Unit = {
+  def setProjectId(projectId: String): Unit =
     this.projectId = projectId
-  }
 
   /**
     * Sets the projectName.
     *
     * @param name The name for sampel of log_stream
     */
-  def setProjectName(name: String): Unit = {
+  def setProjectName(name: String): Unit =
     this.projectName = name
-  }
 
   /**
     * Sets the PayLoadType.
     *
     * @param payLoadType Choose your PayloadType JsonPayload or StringPayload
     */
-  def setPayLoadType(payLoadType: String): Unit = {
+  def setPayLoadType(payLoadType: String): Unit =
     this.payLoadType = payLoadType
-  }
 
   /**
     * Sets the credentialType.
     *
     * @param credentialType The Login Credential Typ FILE, SERVICE_ACCOUNT
     */
-  def setCredentialType(credentialType: String): Unit = {
+  def setCredentialType(credentialType: String): Unit =
     this.credentialType = credentialType
-  }
 
   /**
     * Sets the credentialFile.
     *
     * @param credentialFile The credentialFile Path to your Auth Json File
     */
-  def setFile(credentialFile: String): Unit = {
+  def setFile(credentialFile: String): Unit =
     this.credentialFile = credentialFile
-  }
 
   /**
     * Sets the clientId.
     *
     * @param clientId The clientId of Google cloud Project
     */
-  def setClientId(clientId: String): Unit = {
+  def setClientId(clientId: String): Unit =
     this.clientId = clientId
-  }
 
   /**
     * Sets the projectId.
     *
     * @param clientEmail The clientEmail of Google cloud Project
     */
-  def setClientEmail(clientEmail: String): Unit = {
+  def setClientEmail(clientEmail: String): Unit =
     this.clientEmail = clientEmail
-  }
 
   /**
     * Sets the projectId.
     *
     * @param privateKeyId The privateKeyId of Google cloud Project
     */
-  def setPrivateKeyId(privateKeyId: String): Unit = {
+  def setPrivateKeyId(privateKeyId: String): Unit =
     this.privateKeyId = privateKeyId
-  }
 
   /**
     * Sets the privateKey.
@@ -160,38 +147,37 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
     * @param privateKey The privateKey of Google cloud Project
     */
   def setPrivateKey(privateKey: String): Unit = {
-    val internalPrivateKey = privateKey.split("(\n|\r\n|\\\\r\\\\n|\\\\n)").map(string => {
-      string.trim
-    }).mkString("\n")
+    val internalPrivateKey = privateKey
+      .split("(\n|\r\n|\\\\r\\\\n|\\\\n)")
+      .map(string => {
+        string.trim
+      })
+      .mkString("\n")
     this.privateKey = internalPrivateKey
   }
 
   /** Add extra labels using classes that implement {@link com.google.cloud.logging.LoggingEnhancer}. */
-  def addEnhancer(enhancerClassName: String): Unit = {
+  def addEnhancer(enhancerClassName: String): Unit =
     this.enhancerClassNames.+=(enhancerClassName)
-  }
 
-  def addLoggingEventEnhancer(enhancerClassName: String): Unit = {
+  def addLoggingEventEnhancer(enhancerClassName: String): Unit =
     this.loggingEventEnhancerClassNames.+=(enhancerClassName)
-  }
 
-  private[logback] def getFlushLevel: Level = {
+  private[logback] def getFlushLevel: Level =
     if (flushLevel != null) {
       flushLevel
     }
     else {
       Level.ERROR
     }
-  }
 
-  private[logback] def getLogName = {
+  private[logback] def getLogName =
     if (log != null) {
       log
     }
     else {
       "java.log"
     }
-  }
 
   private[logback] def getMonitoredResource(projectId: String): MonitoredResource = {
     var resource = MonitoredResourceUtil.getResource(projectId, resourceType)
@@ -227,7 +213,6 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
       return Some(clz.newInstance)
     } catch {
       case ex: Exception =>
-
       // If we cannot create the enhancer we fallback to null
     }
     None
@@ -260,16 +245,15 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
   }
 
   override def stop(): Unit = {
-    if (logging != null) try
-      logging.close()
-    catch {
-      case ex: Exception =>
-      // ignore
-    }
+    if (logging != null)
+      try logging.close()
+      catch {
+        case ex: Exception =>
+        // ignore
+      }
     logging = null
     super.stop()
   }
-
 
   private[logback] def getLogging: Logging = {
     if (logging == null) {
@@ -280,7 +264,8 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
               if (credentialFile != null) {
                 val fileInputStream = new FileInputStream(credentialFile)
                 LoggingOptions.newBuilder().setCredentials(GoogleCredentials.fromStream(fileInputStream)).build()
-              } else {
+              }
+              else {
                 throw new FileNotFoundException()
               }
             }
@@ -291,7 +276,8 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
                 val serviceAccountBuilder = ServiceAccountCredentials.fromPkcs8(clientId, clientEmail, privateKey, privateKeyId, scopes.asJava).toBuilder
                 serviceAccountBuilder.setProjectId(projectId)
                 credentials = serviceAccountBuilder.build()
-              } else {
+              }
+              else {
                 throw LoginCredentialsNotSupported()
               }
 
@@ -352,7 +338,6 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
     builder.build
   }
 
-
   private def getThrowableProxyMap(proxy: IThrowableProxy): Map[String, Any] = {
     val proxyInfos = mutable.Map[String, Any]()
     if (proxy != null) {
@@ -386,7 +371,6 @@ class LoggingAppender extends UnsynchronizedAppenderBase[ILoggingEvent] {
     createPayloadString(throwProxy.getCause, "caused by: ", payload)
   }
 }
-
 
 object LoggingAppender {
   private val LEVEL_NAME_KEY = "levelName"
