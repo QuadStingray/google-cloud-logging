@@ -6,20 +6,20 @@ crossPaths := false
 
 scalaVersion := crossScalaVersions.value.last
 
-crossScalaVersions := List("2.12.8", "2.13.1", "2.13.2")
+crossScalaVersions := List("2.12.8", "2.13.1", "2.13.2", "2.13.3", "2.13.4", "2.13.5")
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-Ywarn-unused", "-Yrangepos")
 
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3" % Provided
 
 libraryDependencies ++= Seq(
-  "com.google.cloud" % "google-cloud-logging" % "1.101.1"
+  "com.google.cloud" % "google-cloud-logging" % "2.2.2"
 )
 
 // Tests
 libraryDependencies ++= Seq(
-  "org.specs2" %% "specs2-core" % "4.9.3" % Test,
-  "junit" % "junit" % "4.13" % Test
+  "org.specs2" %% "specs2-core" % "4.11.0" % Test,
+  "junit" % "junit" % "4.13.2" % Test
 )
 
 homepage := Some(url("https://quadstingray.github.io/google-cloud-logging/"))
