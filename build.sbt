@@ -2,11 +2,11 @@ name := "google-cloud-logging"
 
 organization := "com.quadstingray"
 
-crossPaths := false
+//crossPaths := false
 
 scalaVersion := crossScalaVersions.value.last
 
-crossScalaVersions := List("2.12.8", "2.13.1", "2.13.2", "2.13.3", "2.13.4", "2.13.5")
+crossScalaVersions := List("2.12.8", "2.13.5")
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-Ywarn-unused", "-Yrangepos")
 
