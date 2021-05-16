@@ -13,7 +13,7 @@ scalacOptions := Seq("-unchecked", "-deprecation", "-Ywarn-unused", "-Yrangepos"
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3" % Provided
 
 libraryDependencies ++= Seq(
-  "com.google.cloud" % "google-cloud-logging" % "2.2.2"
+  "com.google.cloud" % "google-cloud-logging" % "2.2.3"
 )
 
 // Tests
