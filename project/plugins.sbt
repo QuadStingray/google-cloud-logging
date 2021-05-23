@@ -1,4 +1,4 @@
-addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.6.1")
+addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.8.1")
 
 addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.5.0")
 
