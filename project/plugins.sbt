@@ -16,5 +16,5 @@ addSbtPlugin("org.foundweekends" % "sbt-bintray" % "0.5.6")
 
 addSbtPlugin("com.geirsson" % "sbt-scalafmt" % "1.5.1")
 
-addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.9.14")
+addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.9.28")
 
