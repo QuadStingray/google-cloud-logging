@@ -18,7 +18,7 @@ libraryDependencies ++= Seq(
 
 // Tests
 libraryDependencies ++= Seq(
-  "org.specs2" %% "specs2-core" % "4.11.0" % Test,
+  "org.specs2" %% "specs2-core" % "4.12.0" % Test,
   "junit" % "junit" % "4.13.2" % Test
 )
 
