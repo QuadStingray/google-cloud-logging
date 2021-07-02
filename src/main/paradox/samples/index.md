@@ -21,9 +21,9 @@
 ## Add your Logback.xml
 Samples:
 
-* [File Config](file-settings.md)
-* [Service Account Config](service-account-settings.md)
-* [Log Stream Target](logstream.md)
+* @ref[File Config](./file-settings.md)
+* @ref[Service Account Config](./service-account-settings.md)
+* @ref[Log Stream Target](./logstream.md)
 
 
 ## Modifiy The Log Entry
@@ -39,10 +39,18 @@ import ch.qos.logback.classic.spi.ILoggingEvent
 
 class SpecialEnhancer extends LoggingEventEnhancer {
   override def enhanceLogEntry(logEntry: LogEntry.Builder, e: ILoggingEvent): Unit = {
-            logEntry.addLabel("duration", event.duration.toString)
-            logEntry.addLabel("eventType", "RequestFinishedLogEvent")
+    logEntry.addLabel("duration", event.duration.toString)
+    logEntry.addLabel("eventType", "RequestFinishedLogEvent")
   }
 
 
 }
 ```
+
+@@@ index
+
+* [File Config](file-settings.md)
+* [Service Account Config](service-account-settings.md)
+* [Log Stream Target](logstream.md)
+
+@@@

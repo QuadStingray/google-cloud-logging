@@ -6,19 +6,19 @@ organization := "com.quadstingray"
 
 scalaVersion := crossScalaVersions.value.last
 
-crossScalaVersions := List("2.12.8", "2.13.5")
+crossScalaVersions := List("2.12.14", "2.13.6")
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-Ywarn-unused", "-Yrangepos")
 
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3" % Provided
 
 libraryDependencies ++= Seq(
-  "com.google.cloud" % "google-cloud-logging" % "2.2.2"
+  "com.google.cloud" % "google-cloud-logging" % "2.3.1"
 )
 
 // Tests
 libraryDependencies ++= Seq(
-  "org.specs2" %% "specs2-core" % "4.11.0" % Test,
+  "org.specs2" %% "specs2-core" % "4.12.2" % Test,
   "junit" % "junit" % "4.13.2" % Test
 )
 
