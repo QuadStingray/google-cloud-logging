@@ -134,7 +134,12 @@ QuadStingray/google-cloud-logging
 
 </div>
 <ul>
-  <li><a href="samples/index.html" class="page">Enable Google Cloud Logging</a></li>
+  <li><a href="samples/index.html" class="page">Enable Google Cloud Logging</a>
+  <ul>
+    <li><a href="samples/file-settings.html" class="page">Sample with File Configuration</a></li>
+    <li><a href="samples/service-account-settings.html" class="page">Sample Logging to Service Account</a></li>
+    <li><a href="samples/logstream.html" class="page">Sample Logging to Log Stream</a></li>
+  </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">Table of contents</label>
@@ -154,7 +159,7 @@ QuadStingray/google-cloud-logging
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.0.1
+<i class="md-icon" title="Version">label_outline</i> 1.1.0
 </label>
 </li>
 </ul>
@@ -191,12 +196,14 @@ QuadStingray/google-cloud-logging
 <p><a href="https://travis-ci.org/QuadStingray/google-cloud-logging"><img src="https://travis-ci.org/QuadStingray/google-cloud-logging.svg?branch=master" alt="Build Status" /></a> <a href="https://bintray.com/quadstingray/maven/google-cloud-logging/_latestVersion"> <img src="https://api.bintray.com/packages/quadstingray/maven/google-cloud-logging/images/download.svg" alt="Download from Bintray" /> </a></p>
 <h2><a href="#maven" name="maven" class="anchor"><span class="anchor-link"></span></a>maven</h2>
 <p>google-cloud-logging is deployed on bintray (jcenter).</p>
-<h2><a href="#sbt" name="sbt" class="anchor"><span class="anchor-link"></span></a>SBT</h2><dl class="dependency"><dt>sbt</dt><dd><pre class="prettyprint"><code class="language-scala">libraryDependencies += "com.quadstingray" % "google-cloud-logging" % "1.0.1"</code></pre></dd><dt>Maven</dt><dd><pre class="prettyprint"><code class="language-xml">&lt;dependency&gt;
-  &lt;groupId&gt;com.quadstingray&lt;/groupId&gt;
-  &lt;artifactId&gt;google-cloud-logging&lt;/artifactId&gt;
-  &lt;version&gt;1.0.1&lt;/version&gt;
-&lt;/dependency&gt;</code></pre></dd><dt>Gradle</dt><dd><pre class="prettyprint"><code class="language-gradle">dependencies {
-  compile group: 'com.quadstingray', name: 'google-cloud-logging', version: '1.0.1'
+<h2><a href="#sbt" name="sbt" class="anchor"><span class="anchor-link"></span></a>SBT</h2><dl class="dependency"><dt>sbt</dt><dd><pre class="prettyprint"><code class="language-scala">libraryDependencies += "com.quadstingray" % "google-cloud-logging" % "1.1.0"</code></pre></dd><dt>Maven</dt><dd><pre class="prettyprint"><code class="language-xml">&lt;dependencies&gt
+  &lt;dependency&gt;
+    &lt;groupId&gt;com.quadstingray&lt;/groupId&gt;
+    &lt;artifactId&gt;google-cloud-logging&lt;/artifactId&gt;
+    &lt;version&gt;1.1.0&lt;/version&gt;
+  &lt;/dependency&gt
+&lt;/dependencies&gt;</code></pre></dd><dt>Gradle</dt><dd><pre class="prettyprint"><code class="language-gradle">dependencies {
+  implementation "com.quadstingray:google-cloud-logging:1.1.0"
 }</code></pre></dd></dl>
 <h2><a href="#licence" name="licence" class="anchor"><span class="anchor-link"></span></a>Licence</h2>
 <p><a href="https://github.com/QuadStingray/google-cloud-logging/blob/master/LICENSE">Apache 2 License.</a></p>
@@ -207,13 +214,13 @@ QuadStingray/google-cloud-logging
 </ul>
 </div>
 <div>
-<a href="https://github.com/QuadStingray/google-cloud-logging/tree/v1.0.1/src/main/paradox/index.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/QuadStingray/google-cloud-logging/tree/v1.1.0/src/main/paradox/index.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.0.1
+1.1.0
 </span>
 </div>
 </article>
