@@ -10,7 +10,7 @@ crossScalaVersions := List("2.12.14", "2.13.6")
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-Ywarn-unused", "-Yrangepos")
 
-libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3" % Provided
+libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.4" % Provided
 
 libraryDependencies ++= Seq(
   "com.google.cloud" % "google-cloud-logging" % "2.3.1"
